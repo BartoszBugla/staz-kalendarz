@@ -11,7 +11,7 @@ import { Modal, Button, ListGroup } from "react-bootstrap";
 // import { useCalendar } from "../context/CalendarContext";
 interface IProps {}
 const OnHoldModal: React.FC<IProps> = ({ children }) => {
-  const [state, { closeModal }] = useCalendar();
+  const [state, { closeModal, acceptSlot, rejectSlot }] = useCalendar();
   const filtered = getAllOnHold(state.slots);
 
   const renderElements = () => {
@@ -29,15 +29,21 @@ const OnHoldModal: React.FC<IProps> = ({ children }) => {
               return "something went wrong ";
             } else {
               const { name, second, description, email } = j.info;
+
               return (
                 <OnHoldAccept
-                  key={`${j.hour}:${j.minute}-${i}`}
+                  key={`${j.id}`}
                   date={getDateFromId(i)}
                   time={{ minute: j.minute, hour: j.hour }}
                   description={description}
                   name={name}
                   email={email}
                   second={second}
+                  accept={() => {
+                    console.log(i, j.id);
+                    acceptSlot(i, j.id);
+                  }}
+                  reject={() => rejectSlot(i, j.id)}
                 />
               );
             }

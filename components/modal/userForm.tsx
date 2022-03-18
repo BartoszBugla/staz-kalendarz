@@ -4,36 +4,38 @@ import { useCalendar } from "../../context/CalendarContext";
 import { useForms } from "../../hooks/useForm";
 import type { Info } from "../../types";
 interface UserFormProps {
-  timeId: string;
+  slotId: string;
+  inputs: { name: string; description: string; email: string; second: string };
+  handleInputChange: () => void;
+  handleSubmit: (e: any) => void;
 }
 const UserForm: React.FC<UserFormProps> = (props) => {
-  const [state, { book }] = useCalendar();
-  const { inputs, handleInputChange } = useForms({
-    name: "",
-    second: "",
-    description: "",
-    email: "",
-  });
-  const validate = (word: string, max: number, min: number) => {
-    if (word.length > max) {
-      return false;
-    } else if (word.length < min) {
-      return false;
-    } else return true;
-  };
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  // const { inputs, handleInputChange } = useForms({
+  //   name: "",
+  //   second: "",
+  //   description: "",
+  //   email: "",
+  // });
+  // const validate = (word: string, max: number, min: number) => {
+  //   if (word.length > max) {
+  //     return false;
+  //   } else if (word.length < min) {
+  //     return false;
+  //   } else return true;
+  // };
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault();
 
-    const data = {
-      ...inputs,
-      timeId: props.timeId,
-      day: state.modal.id,
-    };
-
-    book(data);
-  };
+  //   const data = {
+  //     ...inputs,
+  //     dayId: state.modal.id,
+  //     slotId: props.slotId,
+  //   };
+  //   console.log(props.slotId, slotdayId);
+  //   book(data);
+  // };
   return (
-    <Form className="p-2" onSubmit={handleSubmit}>
+    <Form className="p-2" onSubmit={props.handleSubmit}>
       {props.children}
       <div className="d-flex">
         <Form.Group controlId="formBasicName">
@@ -41,8 +43,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           <Form.Control
             required
             name="name"
-            onChange={handleInputChange}
-            value={inputs.name}
+            onChange={props.handleInputChange}
+            value={props.inputs.name}
             size="sm"
             placeholder="Jan"
           />
@@ -53,8 +55,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           <Form.Control
             required
             name="second"
-            onChange={handleInputChange}
-            value={inputs.second}
+            onChange={props.handleInputChange}
+            value={props.inputs.second}
             size="sm"
             placeholder="Kowalski "
           />
@@ -66,8 +68,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
         <Form.Control
           required
           name="email"
-          onChange={handleInputChange}
-          value={inputs.email}
+          onChange={props.handleInputChange}
+          value={props.inputs.email}
           size="sm"
           placeholder="kowalski.jan@gmail.com "
         />
@@ -77,8 +79,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
         <Form.Control
           required
           name="description"
-          onChange={handleInputChange}
-          value={inputs.description}
+          onChange={props.handleInputChange}
+          value={props.inputs.description}
           size="sm"
           as="textarea"
           placeholder="kradziez..."

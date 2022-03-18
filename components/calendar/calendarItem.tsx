@@ -90,6 +90,9 @@ const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
               {props.onHoldCount > 0 && "on hold : " + props.onHoldCount}
             </div>
           )}
+          {state.logged && (
+            <div>{props.bookedCount > 0 && "booked: " + props.bookedCount}</div>
+          )}
         </small>
       </div>
     </Col>

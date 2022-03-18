@@ -42,8 +42,9 @@ const ModalAdvisor: React.FC<ModalAdvisorProps> = () => {
   };
   const add = (e: any) => {
     e.preventDefault();
-
     setItems((prev) => {
+      //local id!!!!!
+      //use only across local state
       const id = `${time.hour}-${time.minute}`;
       const found = prev.find((i) => i.id == id);
       if (found) {

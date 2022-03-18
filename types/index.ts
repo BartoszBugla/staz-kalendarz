@@ -30,5 +30,10 @@ interface State {
 interface Modal {
   isOpened: false;
   id: string;
-  type: "choose" | "single-client" | "single-advisor" | "onHold";
+  type: ModalTypes;
 }
+export type ModalTypes =
+  | "choose"
+  | "single-client"
+  | "single-advisor"
+  | "onHold";

@@ -1,6 +1,7 @@
 //here is list of every action
 import type { Dispatch } from "react";
-function actions(dispatch: Dispatch<any>) {
+import type { Actions } from "../../types/calendarActions";
+function actions(dispatch: Dispatch<Actions>) {
   const nextMonth = () => {
     dispatch({
       type: "CHANGE_MONTH",
@@ -60,6 +61,7 @@ function actions(dispatch: Dispatch<any>) {
     hour: number;
     minute: number;
   };
+
   const addFreeSlots = (data: SlotPayload[]) => {
     dispatch({
       type: "ADD_FREE_SLOTS",
@@ -88,12 +90,12 @@ function actions(dispatch: Dispatch<any>) {
     }
   };
   type Book = {
-    day: string;
-    email: string;
+    description: string;
     name: string;
     second: string;
-    description: string;
-    timeId: string;
+    email: string;
+    dayId: string;
+    slotId: string;
   };
   const book = (data: Book) => {
     dispatch({
@@ -110,13 +112,27 @@ function actions(dispatch: Dispatch<any>) {
       payload: { type: "single-advisor", id },
     });
   };
-  const deleteSlot = (data: { day: string; id: string }) => {
+  const deleteSlot = (dayId: string, slotId: string) => {
     dispatch({
       type: "DELETE_SLOT",
-      payload: { day: data.day, id: data.id },
+      payload: { dayId: dayId, slotId },
+    });
+  };
+  const acceptSlot = (dayId: string, slotId: string) => {
+    dispatch({
+      type: "SLOT_ACCEPT",
+      payload: { dayId, slotId },
+    });
+  };
+  const rejectSlot = (dayId: string, slotId: string) => {
+    dispatch({
+      type: "SLOT_REJECT",
+      payload: { dayId, slotId },
     });
   };
   return {
+    acceptSlot,
+    rejectSlot,
     nextMonth,
     openModalSingleAdvisor,
     book,
@@ -130,6 +146,7 @@ function actions(dispatch: Dispatch<any>) {
     closeModal,
     check,
     deleteSlot,
+
     addFreeSlots,
     clearSlots,
     switchLogged,

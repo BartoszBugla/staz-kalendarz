@@ -7,15 +7,25 @@ import { ListGroup, Form, Modal, Button } from "react-bootstrap";
 import { useForms } from "../../hooks/useForm";
 import ModalContainer from "./modalContainer";
 import UserForm from "./userForm";
+import { getFreeSlotsDay } from "@helpers/slotFilters";
 interface ModalClientProps {}
 const ModalClient: React.FC<ModalClientProps> = (props) => {
-  const { handleInputChange, inputs } = useForms({ time: "" });
-  const [state, { closeModal }] = useCalendar();
-  const items: Slot[] = state.slots[state.modal.id].filter((i) => {
-    return i.available == true;
-  });
-  const { month, day, year } = getDateFromId(state.modal.id);
+  const { handleInputChange, inputs } = useForms({ slotId: "" });
+  const [state, { closeModal, book }] = useCalendar();
 
+  const items: Slot[] = getFreeSlotsDay(state.slots, state.modal.id);
+
+  const { month, day, year } = getDateFromId(state.modal.id);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const data = {
+      ...inputs,
+      dayId: state.modal.id,
+      slotId: inputs.slotId,
+    };
+    console.log(inputs.slotId, state.modal.id);
+    book(data);
+  };
   return (
     <ModalContainer>
       <Modal.Header>
@@ -24,7 +34,12 @@ const ModalClient: React.FC<ModalClientProps> = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <UserForm timeId={inputs.time}>
+        <UserForm
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+          inputs={inputs}
+          slotId={inputs.slotId}
+        >
           <ListGroup
             style={{ maxHeight: "15rem", overflowY: "auto" }}
             variant="flush"
@@ -44,7 +59,7 @@ const ModalClient: React.FC<ModalClientProps> = (props) => {
                       type={"radio"}
                       id={`default-${"radio"}`}
                       label={`choose`}
-                      name="time"
+                      name="slotId"
                       onChange={handleInputChange}
                       value={i.id}
                     />

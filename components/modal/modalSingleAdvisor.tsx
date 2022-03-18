@@ -47,7 +47,7 @@ const ModalClient: React.FC<ModalClientProps> = (props) => {
 
                 <button
                   type="button"
-                  onClick={() => deleteSlot({ day: state.modal.id, id: i.id })}
+                  onClick={() => deleteSlot(state.modal.id, i.id)}
                   className="btn-close btn-sm text-center "
                   aria-label="Close"
                 ></button>

@@ -1,7 +1,8 @@
 import { CalendarContextType, Slot, Slots } from "../../types";
 import advisor_slots from "../../files/advisor_slots.json";
 import free_slots from "../../files/free_slots.json";
-const reducer = (state: CalendarContextType, action: any) => {
+import type { Actions } from "../../types/calendarActions";
+const reducer = (state: CalendarContextType, action: Actions) => {
   switch (action.type) {
     case "CHANGE_MONTH": {
       const increaser = action.payload;
@@ -30,13 +31,14 @@ const reducer = (state: CalendarContextType, action: any) => {
     }
 
     case "OPEN_MODAL": {
+      const { id, type } = action.payload;
       return {
         ...state,
         modal: {
           ...state.modal,
           isOpened: true,
-          type: action.payload.type,
-          id: action.payload.id,
+          type,
+          id: id ? id : "",
         },
       };
     }
@@ -68,12 +70,14 @@ const reducer = (state: CalendarContextType, action: any) => {
     }
 
     case "ADD_FREE_SLOTS": {
-      const payload = action.payload;
+      const items = action.payload;
       const days = state.state.checked;
       let newSlots = {};
       for (const item of days) {
-        const newArray: Slot[] = payload.map((pItem: Slot): Slot => {
-          const id = `${item}-${pItem.hour}:${pItem.minute}`;
+        const newArray: Slot[] = items.map((pItem): Slot => {
+          //generating new global id
+          //item dayId -  rest is slot indetifer
+          const id = `${item}_${pItem.hour}:${pItem.minute}`;
           return {
             id: id,
             onHold: false,
@@ -83,6 +87,7 @@ const reducer = (state: CalendarContextType, action: any) => {
             date: item,
           };
         });
+
         //if day exist in the json
         if (state.slots[item]) {
           // const merged = [...state.slots[item], ...newArray];
@@ -140,34 +145,37 @@ const reducer = (state: CalendarContextType, action: any) => {
       };
     }
     case "BOOK": {
-      const found = state.slots[action.payload.day].findIndex((i) => {
-        return i.id == action.payload.timeId;
+      const { slotId, dayId, name, second, email, description } =
+        action.payload;
+      const found = state.slots[dayId].findIndex((i) => {
+        return i.id == slotId;
       });
       if (found < 0) {
         let bug: never;
         console.error("should not be here");
       }
       const newState: Slot = {
-        ...state.slots[action.payload.day][found],
+        ...state.slots[dayId][found],
         available: false,
         onHold: true,
         info: {
-          description: action.payload.description,
-          name: action.payload.name,
-          second: action.payload.name,
-          email: action.payload.email,
+          description,
+          name,
+          second,
+          email,
         },
       };
-      state.slots[action.payload.day][found] = newState;
+      state.slots[action.payload.dayId][found] = newState;
       return state;
     }
     case "DELETE_SLOT": {
-      const newArray = state.slots[action.payload.day].filter((i) => {
-        return i.id != action.payload.id;
+      const { dayId, slotId } = action.payload;
+      const newArray = state.slots[action.payload.dayId].filter((i) => {
+        return i.id != slotId;
       });
       return {
         ...state,
-        slots: { ...state.slots, [action.payload.day]: newArray },
+        slots: { ...state.slots, [dayId]: newArray },
       };
     }
     case "ADVISOR_INIT": {
@@ -186,10 +194,43 @@ const reducer = (state: CalendarContextType, action: any) => {
       return { ...state, logged: !state.logged };
     }
     case "SLOT_ACCEPT": {
-      // const found = state.slots[action.payload.day].find();
+      const dayId = action.payload.dayId;
+      const slotId = action.payload.slotId;
+      const found = state.slots[dayId].findIndex((i) => {
+        return i.id, slotId;
+      });
+      if (found < 0) {
+        console.log("some kind of error with SLOT_ACCEPT");
+        return state;
+      }
+      state.slots[dayId][found] = {
+        ...state.slots[dayId][found],
+        available: false,
+        onHold: false,
+      };
       return state;
     }
     case "SLOT_REJECT": {
+      const dayId = action.payload.dayId;
+      const slotId = action.payload.slotId;
+      const found = state.slots[dayId].findIndex((i) => {
+        return i.id, slotId;
+      });
+      if (found < 0) {
+        console.log("some kind of error with SLOT_REJECT");
+        return state;
+      }
+      state.slots[dayId][found] = {
+        ...state.slots[dayId][found],
+        available: true,
+        onHold: false,
+        info: {
+          name: "",
+          second: "",
+          email: "",
+          description: "",
+        },
+      };
       return state;
     }
     default: {
