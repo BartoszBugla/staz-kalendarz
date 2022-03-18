@@ -1,11 +1,10 @@
 import numberZeroAdder from "@helpers/numberZeroAdder";
-import React from "react";
+import { Info } from "../../types";
+import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
-interface OnHoldAcceptProps {
-  name?: string;
-  second?: string;
-  email?: string;
-  description?: string;
+import { useCalendar } from "@context/CalendarContext";
+interface IProps {
+  info?: Info;
   reject: () => void;
   accept: () => void;
   date: {
@@ -14,8 +13,15 @@ interface OnHoldAcceptProps {
     year: number;
   };
   time: { hour: number; minute: number };
+  // dayId: string;
+  // slotId: string;
 }
-const OnHoldAccept: React.FC<OnHoldAcceptProps> = (props) => {
+const OnHoldCard: React.FC<IProps> = (props) => {
+  const [show, setShow] = useState(true);
+
+  if (!show) {
+    return <div></div>;
+  }
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body>
@@ -24,25 +30,31 @@ const OnHoldAccept: React.FC<OnHoldAcceptProps> = (props) => {
           {numberZeroAdder(props.time.minute)}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          {props.name} {props.second}{" "}
+          {props.info!.name} {props.info!.second}{" "}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
           {" "}
-          {props.email}
+          {props.info!.email}
         </Card.Subtitle>
-        <Card.Text>{props.description}</Card.Text>
+        <Card.Text>{props.info!.description}</Card.Text>
 
         <Button
           size="sm"
           variant="secondary "
-          onClick={props.reject}
+          onClick={() => {
+            props.reject();
+            setShow(false);
+          }}
           className="mx-2"
         >
           Reject
         </Button>
         <Button
           variant="primary"
-          onClick={props.accept}
+          onClick={() => {
+            props.accept();
+            setShow(false);
+          }}
           className="mx-2"
           size="sm"
         >
@@ -53,4 +65,4 @@ const OnHoldAccept: React.FC<OnHoldAcceptProps> = (props) => {
   );
 };
 
-export default OnHoldAccept;
+export default OnHoldCard;
