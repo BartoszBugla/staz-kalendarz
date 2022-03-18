@@ -1,0 +1,56 @@
+{
+  "2022-0-5": [
+    {
+      "hour": 12,
+      "minute": 12,
+      "onHold": { "isOnHold": false },
+      "available": true
+    },
+    {
+      "hour": 13,
+      "minute": 12,
+      "onHold": { "isOnHold": true, "description": "kradzieź" },
+      "available": false
+    }
+  ],
+  "2022-2-21": [
+    {
+      "hour": 12,
+      "minute": 12,
+      "onHold": { "isOnHold": false },
+      "available": true
+    },
+    {
+      "hour": 13,
+      "minute": 12,
+      "onHold": true,
+      "info": {
+        "description": "kradzieź okradli mi samochod nie wiem co mam terz zrobic czy moze mi pan pomoc pilnie ? ",
+        "name": "Bartosz",
+        "second": "Bugla",
+        "email": "buglabartosz@gmail.com"
+      },
+      "available": false
+    },
+    {
+      "hour": 13,
+      "minute": 0,
+      "onHold": {
+        "isOnHold": true,
+        "description": "kradzieź",
+        "name": "Bartosz",
+        "second": "Bugla",
+        "email": "buglabartosz@gmail.com"
+      },
+      "available": false
+    }
+  ],
+  "2022-4-22": [
+    {
+      "hour": 12,
+      "minute": 12,
+      "onHold": { "isOnHold": false },
+      "available": true
+    }
+  ]
+}

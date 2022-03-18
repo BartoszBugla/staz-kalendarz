@@ -1,0 +1,72 @@
+[
+  {
+    "pl": {
+      "short": "pon",
+      "long": "poniedziałek"
+    },
+    "en": {
+      "short": "mon",
+      "long": "monday"
+    }
+  },
+  {
+    "pl": {
+      "short": "wt",
+      "long": "Wtorek"
+    },
+    "en": {
+      "short": "Tue",
+      "long": "Tuesday"
+    }
+  },
+  {
+    "pl": {
+      "short": "śr",
+      "long": "środa"
+    },
+    "en": {
+      "short": "Wed",
+      "long": "Wednesday"
+    }
+  },
+  {
+    "pl": {
+      "short": "Czw",
+      "long": "Czwartek"
+    },
+    "en": {
+      "short": "Thu",
+      "long": "Thursday"
+    }
+  },
+  {
+    "pl": {
+      "short": "Pt",
+      "long": "Piątek"
+    },
+    "en": {
+      "short": "Fri",
+      "long": "Firday"
+    }
+  },
+  {
+    "pl": {
+      "short": "Sob",
+      "long": "Sobota"
+    },
+    "en": {
+      "short": "Sat",
+      "long": "Saturday"
+    }
+  },
+  {
+    "pl": {
+      "short": "Nd",
+      "long": "Niedziela"
+    },
+    "en": {
+      "short": "Sun",
+      "long": "Sunday"
+    }
+  }
+]

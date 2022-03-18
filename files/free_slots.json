@@ -1,0 +1,6 @@
+{
+  "2022-0-5": [
+    { "id": "12:12", "hour": 12, "minute": 12, "available": true },
+    { "id": "13:12", "hour": 13, "minute": 12, "available": true }
+  ]
+}
