@@ -102,6 +102,9 @@ function actions(dispatch: Dispatch<Actions>) {
       type: "BOOK",
       payload: data,
     });
+    dispatch({
+      type: "CLOSE_MODAL",
+    });
   };
   const switchLogged = () => {
     dispatch({ type: "SWITCH_LOGGED" });
