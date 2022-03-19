@@ -1,6 +1,20 @@
 {
-  "2022-0-5": [
-    { "id": "12:12", "hour": 12, "minute": 12, "available": true },
-    { "id": "13:12", "hour": 13, "minute": 12, "available": true }
+  "2022-2-21": [
+    {
+      "id": "2022-2-21_12:12",
+      "hour": 12,
+      "minute": 12,
+      "onHold": false,
+      "available": true,
+      "date": "2022-2-21"
+    },
+    {
+      "id": "2022-2-21_13:20",
+      "hour": 13,
+      "minute": 20,
+      "onHold": false,
+      "available": true,
+      "date": "2022-2-21"
+    }
   ]
 }

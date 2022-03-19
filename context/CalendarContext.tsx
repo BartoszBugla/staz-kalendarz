@@ -8,6 +8,8 @@ import {
 import reducer from "./reducers/calendarReducer";
 import actions from "./actions/Calendar";
 import { CalendarContextType } from "../types";
+import advisor_slots from "../files/advisor_slots.json";
+import free_slots from "../files/free_slots.json";
 const calc = () => {
   const date = new Date();
   const month = date.getMonth();
@@ -40,7 +42,17 @@ type Props = {
   children: ReactNode;
 };
 function init(initialValue: CalendarContextType) {
-  return initialValue;
+  if (initialValue.logged) {
+    return {
+      ...initialValue,
+      slots: { ...advisor_slots },
+    };
+  } else {
+    return {
+      ...initialValue,
+      slots: { ...free_slots },
+    };
+  }
 }
 export function CalendarContextProvider({ children }: Props) {
   //@ts-ignore

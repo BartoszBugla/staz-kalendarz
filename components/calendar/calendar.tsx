@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row, Container } from "react-bootstrap";
 import TitleRow from "./calendarTitleRow";
 import CalendarItem from "./calendarItem";
@@ -26,9 +26,6 @@ const Calendar: React.FC<IProps> = () => {
     displayedDate.month + 1,
     0
   ).getDate();
-  useEffect(() => {
-    init(true);
-  }, []);
 
   const currentDate = new Date();
 

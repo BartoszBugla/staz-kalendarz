@@ -13,7 +13,9 @@ export type Actions =
         | "CHOOSE_CANCEL"
         | "CHOOSE_START"
         | "CLEAR_CHECKED"
-        | "CLEAR_SLOTS";
+        | "CLEAR_SLOTS"
+        | "LOGIN"
+        | "LOGOUT";
     }
   | {
       type: "CHECK";

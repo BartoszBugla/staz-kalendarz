@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       </Head>
       <Calendar />
       <Modal />
-      <LoginButton init={false} />
+      <LoginButton init={true} />
     </div>
   );
 };
