@@ -1,4 +1,4 @@
-import { Modal } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 
 interface ModalAdvisorProps {}
 const bgStyle = {
@@ -10,13 +10,16 @@ const bgStyle = {
 const ModalContainer: React.FC<ModalAdvisorProps> = ({ children }) => {
   return (
     <>
-      <div className="position-fixed top-0 start-0" style={bgStyle}></div>
-      <Modal.Dialog
-        style={{ padding: "2rem !important" }}
-        className="position-fixed top-50 opacity-100 start-50 translate-middle p-4"
-      >
-        {children}
-      </Modal.Dialog>
+      <div className="position-fixed top-0 start-0 p-2" style={bgStyle}></div>
+      <Container>
+        {" "}
+        <Modal.Dialog
+          style={{ padding: "2rem !important", width: "100%" }}
+          className="position-fixed top-50 opacity-100 start-50 translate-middle p-4"
+        >
+          {children}
+        </Modal.Dialog>
+      </Container>
     </>
   );
 };

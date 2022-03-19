@@ -73,6 +73,7 @@ const reducer = (state: CalendarContextType, action: Actions) => {
       const items = action.payload;
       const days = state.state.checked;
       let newSlots = {};
+      console.log(days);
       for (const date of days) {
         const newArray: Slot[] = items.map((pItem): Slot => {
           //generating new global id
@@ -87,23 +88,14 @@ const reducer = (state: CalendarContextType, action: Actions) => {
             date: date,
           };
         });
-
         //if day exist in the json
         if (state.slots[date]) {
           const merged = [...state.slots[date], ...newArray];
-          // const unique = merged.filter((i, index) => {
-          //   let found = false;
-          //   for (let j = index + 1; j < merged.length; j++) {
-          //     if (i.id == merged[j].id) {
-          //       found = true;
-          //     }
-          //     return !found;
-          //   }
-          // });
+
           const unique = merged.filter((value, index, self) => {
             return self.findIndex((i) => i.id == value.id) == index;
           });
-          newSlots = { [date]: unique };
+          newSlots = { ...newSlots, [date]: unique };
         } else {
           newSlots = {
             ...newSlots,
@@ -166,10 +158,7 @@ const reducer = (state: CalendarContextType, action: Actions) => {
         },
       };
       state.slots[action.payload.dayId][found] = newState;
-      // return {
-      //   ...state,
-      //   slots: { ...state.slots, [dayId]: [...state.slots[dayId], newState] },
-      // };
+
       return state;
     }
     case "DELETE_SLOT": {

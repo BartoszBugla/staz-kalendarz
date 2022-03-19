@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useCalendar } from "../context/CalendarContext";
+import Circle from "./shared/circle";
 
 interface onHoldButtonProps {}
 const onHoldButton: React.FC<onHoldButtonProps> = () => {
@@ -12,7 +13,12 @@ const onHoldButton: React.FC<onHoldButtonProps> = () => {
     });
     counter += newArray.length;
   }
-  return <Button onClick={openOnHoldModal}>On hold {counter} </Button>;
+  return (
+    <Button className="d-flex" onClick={openOnHoldModal}>
+      <span className="px-1">On hold </span>
+      {counter > 0 && <Circle color="orange" count={counter} />}
+    </Button>
+  );
 };
 
 export default onHoldButton;

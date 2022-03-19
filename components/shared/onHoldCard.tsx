@@ -23,7 +23,7 @@ const OnHoldCard: React.FC<IProps> = (props) => {
     return <div></div>;
   }
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card>
       <Card.Body>
         <Card.Title>
           {numberZeroAdder(props.time.hour)}:

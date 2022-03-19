@@ -10,30 +10,6 @@ interface UserFormProps {
   handleSubmit: (e: any) => void;
 }
 const UserForm: React.FC<UserFormProps> = (props) => {
-  // const { inputs, handleInputChange } = useForms({
-  //   name: "",
-  //   second: "",
-  //   description: "",
-  //   email: "",
-  // });
-  // const validate = (word: string, max: number, min: number) => {
-  //   if (word.length > max) {
-  //     return false;
-  //   } else if (word.length < min) {
-  //     return false;
-  //   } else return true;
-  // };
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault();
-
-  //   const data = {
-  //     ...inputs,
-  //     dayId: state.modal.id,
-  //     slotId: props.slotId,
-  //   };
-  //   console.log(props.slotId, slotdayId);
-  //   book(data);
-  // };
   return (
     <Form className="p-2" onSubmit={props.handleSubmit}>
       {props.children}
@@ -47,18 +23,20 @@ const UserForm: React.FC<UserFormProps> = (props) => {
             value={props.inputs.name}
             size="sm"
             placeholder="Jan"
+            maxLength={64}
           />
         </Form.Group>
 
         <Form.Group controlId="formBasicSecondName">
           <Form.Label>Second name</Form.Label>
           <Form.Control
+            maxLength={64}
             required
             name="second"
             onChange={props.handleInputChange}
             value={props.inputs.second}
             size="sm"
-            placeholder="Kowalski "
+            placeholder="Kowalski"
           />
         </Form.Group>
       </div>
@@ -66,8 +44,10 @@ const UserForm: React.FC<UserFormProps> = (props) => {
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
+          maxLength={64}
           required
           name="email"
+          type="email"
           onChange={props.handleInputChange}
           value={props.inputs.email}
           size="sm"
@@ -83,9 +63,10 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           value={props.inputs.description}
           size="sm"
           as="textarea"
+          maxLength={200}
           placeholder="kradziez..."
         />
-        {/* <Form.Text>Uwaga prosze podac maksymalnie 100 slow</Form.Text> */}
+        <Form.Text>Limit is 200 letters</Form.Text>
       </Form.Group>
 
       <Button type="submit" className="w-100">

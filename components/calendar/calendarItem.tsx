@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, FormCheck, Form } from "react-bootstrap";
 import { useCalendar } from "../../context/CalendarContext";
+import CircleList from "./circleList";
 interface CalendarItemProps {
   isEmpty?: false;
   isCurrentDay: boolean;
@@ -17,12 +18,16 @@ interface CalendarItemProps {
 interface none {
   isEmpty: true;
 }
+const style = {
+  minHeight: "100%",
+  height: "6rem",
+};
 const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
   //puste pole
   if (props.isEmpty) {
     return (
       <Col>
-        <div style={{ minHeight: "100%" }} className="border pb-5 p-2"></div>
+        <div style={style} className="border p-2"></div>
       </Col>
     );
   }
@@ -30,10 +35,7 @@ const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
   if (!props.active) {
     return (
       <Col>
-        <div
-          style={{ minHeight: "100%" }}
-          className="border pb-5 p-2 text-muted opacity-50 "
-        >
+        <div style={style} className="border p-2 text-muted opacity-50 ">
           {props.day}
         </div>
       </Col>
@@ -64,13 +66,11 @@ const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
         backgroundColor:
           props.freeSlotsCount > 0 ? "rgba(133, 200, 138,0.75)" : "",
         border: props.isCurrentDay ? "1px solid black" : "",
+        position: "relative",
       }}
+      className="pointer"
     >
-      <div
-        style={{ minHeight: "100%" }}
-        className="border pb-5 p-2 "
-        onClick={handleClick}
-      >
+      <div style={style} className="border p-2 " onClick={handleClick}>
         {props.day}
 
         {props.day && state.state.isChoosing && (
@@ -79,21 +79,18 @@ const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
             id={`default-checkbox`}
             checked={props.checked}
             onChange={handleChange}
+            style={{
+              position: "absolute",
+              right: "0.4rem",
+              top: "0.4rem",
+            }}
           />
         )}
-        <small>
-          <div>
-            {props.freeSlotsCount > 0 && "free : " + props.freeSlotsCount}
-          </div>
-          {state.logged && (
-            <div>
-              {props.onHoldCount > 0 && "on hold : " + props.onHoldCount}
-            </div>
-          )}
-          {state.logged && (
-            <div>{props.bookedCount > 0 && "booked: " + props.bookedCount}</div>
-          )}
-        </small>
+        <CircleList
+          free={props.freeSlotsCount}
+          booked={props.bookedCount}
+          onHold={props.onHoldCount}
+        />
       </div>
     </Col>
   );
