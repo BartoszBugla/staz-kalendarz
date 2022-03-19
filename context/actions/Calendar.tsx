@@ -133,8 +133,18 @@ function actions(dispatch: Dispatch<Actions>) {
       payload: { dayId, slotId },
     });
   };
+  const addSlot = (dayId: string, time: { hour: number; minute: number }) => {
+    dispatch({
+      type: "ADD_SLOT",
+      payload: {
+        dayId,
+        ...time,
+      },
+    });
+  };
   return {
     acceptSlot,
+    addSlot,
     rejectSlot,
     nextMonth,
     openModalSingleAdvisor,

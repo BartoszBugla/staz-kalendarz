@@ -26,9 +26,8 @@ export type Actions =
   | {
       type: "ADD_FREE_SLOTS";
       payload: {
-        // id: string;
-        minute: number;
         hour: number;
+        minute: number;
       }[];
     }
   | {
@@ -40,6 +39,14 @@ export type Actions =
         email: string;
         dayId: string;
         slotId: string;
+      };
+    }
+  | {
+      type: "ADD_SLOT";
+      payload: {
+        hour: number;
+        minute: number;
+        dayId: string;
       };
     }
   | {

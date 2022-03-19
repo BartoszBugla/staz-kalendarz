@@ -50,12 +50,7 @@ const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
       check(props.id);
     } else if (!state.logged && props.freeSlotsCount > 0) {
       openModalSingle(props.id);
-    } else if (
-      state.logged &&
-      (props.freeSlotsCount > 0 ||
-        props.bookedCount > 0 ||
-        props.onHoldCount > 0)
-    ) {
+    } else if (state.logged) {
       openModalSingleAdvisor(props.id);
     }
   };
@@ -68,7 +63,9 @@ const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
         border: props.isCurrentDay ? "1px solid black" : "",
         position: "relative",
       }}
-      className="pointer"
+      className={`${
+        state.logged || props.freeSlotsCount > 0 ? "pointer darken" : ""
+      } `}
     >
       <div style={style} className="border p-2 " onClick={handleClick}>
         {props.day}

@@ -68,7 +68,45 @@ const reducer = (state: CalendarContextType, action: Actions) => {
         },
       };
     }
+    case "ADD_SLOT": {
+      const { hour, minute, dayId } = action.payload;
+      const id = `${dayId}_${hour}:${minute}`;
+      let newArray = [];
 
+      if (state.slots[dayId]) {
+        newArray = [
+          ...state.slots[dayId],
+          {
+            id: id,
+            onHold: false,
+            available: true,
+            hour,
+            minute,
+            date: dayId,
+          },
+        ];
+        const merged = [...state.slots[dayId], ...newArray];
+
+        const unique = merged.filter((value, index, self) => {
+          return self.findIndex((i) => i.id == value.id) == index;
+        });
+        state.slots[dayId] = unique;
+      } else {
+        newArray = [
+          {
+            id: id,
+            onHold: false,
+            available: true,
+            hour,
+            minute,
+            date: dayId,
+          },
+        ];
+        return { ...state, slots: { ...state.slots, [dayId]: newArray } };
+      }
+
+      return state;
+    }
     case "ADD_FREE_SLOTS": {
       const items = action.payload;
       const days = state.state.checked;
@@ -224,7 +262,10 @@ const reducer = (state: CalendarContextType, action: Actions) => {
           description: "",
         },
       };
-      return state;
+      return {
+        ...state,
+        slots: { ...state.slots, [dayId]: [...state.slots[dayId]] },
+      };
     }
     default: {
       return state;

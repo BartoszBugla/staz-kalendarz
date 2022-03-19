@@ -3,6 +3,8 @@ import { Modal, Button, Form, FormLabel, ListGroup } from "react-bootstrap";
 import { useCalendar } from "../../context/CalendarContext";
 import ModalContainer from "./modalContainer";
 import numberZeroAdder from "@helpers/numberZeroAdder";
+import ChooseHour from "./chooseHour";
+import { useForms } from "@hooks/useForm";
 
 interface ModalAdvisorProps {}
 
@@ -14,38 +16,13 @@ type IState = {
 const ModalAdvisor: React.FC<ModalAdvisorProps> = () => {
   const [state, { closeModal, addFreeSlots }] = useCalendar();
   const [items, setItems] = useState<IState[]>([]);
-  const [time, setTime] = useState<{ hour: number; minute: number }>({
-    hour: 0,
-    minute: 0,
-  });
-  const handleChange = (e: any) => {
-    e.preventDefault();
-
-    setTime((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value,
-      };
-    });
-  };
-
-  const generateSelect = (incrementor: number, max: number) => {
-    const arr = [];
-    for (let i = 0; i < max; i = i + incrementor) {
-      arr.push(
-        <option key={i} value={i}>
-          {numberZeroAdder(i)}
-        </option>
-      );
-    }
-    return arr;
-  };
+  const { inputs, handleInputChange } = useForms({ hour: 0, minute: 0 });
   const add = (e: any) => {
     e.preventDefault();
     setItems((prev) => {
       //local id!!!!!
-      //use only across local state
-      const id = `${time.hour}-${time.minute}`;
+      //use only across local component
+      const id = `${inputs.hour}-${inputs.minute}`;
       const found = prev.find((i) => i.id == id);
       if (found) {
         return prev;
@@ -53,8 +30,8 @@ const ModalAdvisor: React.FC<ModalAdvisorProps> = () => {
         return [
           ...prev,
           {
-            hour: time.hour,
-            minute: time.minute,
+            hour: inputs.hour,
+            minute: inputs.minute,
             id: id,
           },
         ];
@@ -76,34 +53,7 @@ const ModalAdvisor: React.FC<ModalAdvisorProps> = () => {
       </Modal.Header>
 
       <Modal.Body>
-        <Form>
-          <div className="d-flex">
-            <FormLabel>
-              <span>Hour:</span>
-              <Form.Select
-                onChange={handleChange}
-                name="hour"
-                value={time.hour}
-              >
-                {generateSelect(1, 24)}
-              </Form.Select>
-            </FormLabel>
-
-            <FormLabel>
-              <span>Minute:</span>
-              <Form.Select
-                onChange={handleChange}
-                name="minute"
-                value={time.minute}
-              >
-                {generateSelect(5, 60)}
-              </Form.Select>
-            </FormLabel>
-          </div>
-          <Button className="w-100 mt-2" onClick={add} variant="primary">
-            ADD
-          </Button>
-        </Form>
+        <ChooseHour time={inputs} handleChange={handleInputChange} add={add} />
         <ListGroup
           style={{ maxHeight: "20rem", overflowY: "scroll" }}
           variant="flush"
@@ -127,9 +77,6 @@ const ModalAdvisor: React.FC<ModalAdvisorProps> = () => {
             );
           })}
         </ListGroup>
-        <p className="text-muted text-sm ">
-          You can enter particular time only once
-        </p>
       </Modal.Body>
 
       <Modal.Footer>

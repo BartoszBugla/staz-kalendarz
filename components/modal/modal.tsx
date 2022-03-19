@@ -18,7 +18,7 @@ const Modal: React.FC<IProps> = () => {
         return <Single />;
       }
       case "single-advisor": {
-        return <SingleAdvisor items={state.slots[state.modal.id] || {}} />;
+        return <SingleAdvisor />;
       }
     }
   }
