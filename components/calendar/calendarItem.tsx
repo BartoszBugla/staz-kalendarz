@@ -23,6 +23,8 @@ const style = {
   height: "6rem",
 };
 const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
+  const [state, { check, openModalSingle, openModalSingleAdvisor }] =
+    useCalendar();
   //puste pole
   if (props.isEmpty) {
     return (
@@ -42,8 +44,6 @@ const CalendarItem: React.FC<CalendarItemProps | none> = (props) => {
     );
   }
   //
-  const [state, { check, openModalSingle, openModalSingleAdvisor }] =
-    useCalendar();
 
   const handleClick = () => {
     if (state.state.isChoosing) {

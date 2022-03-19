@@ -4,7 +4,7 @@ import { useCalendar } from "../context/CalendarContext";
 import Circle from "./shared/circle";
 
 interface onHoldButtonProps {}
-const onHoldButton: React.FC<onHoldButtonProps> = () => {
+const OnHoldButton: React.FC<onHoldButtonProps> = () => {
   const [state, { openOnHoldModal }] = useCalendar();
   let counter = 0;
   for (const i in state.slots) {
@@ -21,4 +21,4 @@ const onHoldButton: React.FC<onHoldButtonProps> = () => {
   );
 };
 
-export default onHoldButton;
+export default OnHoldButton;
