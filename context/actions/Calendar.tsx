@@ -23,7 +23,7 @@ function actions(dispatch: Dispatch<Actions>) {
   };
   const chooseEnd = () => {
     dispatch({
-      type: "CHOOSE_START",
+      type: "CHOOSE_CANCEL",
     });
     dispatch({ type: "CLEAR_CHECKED" });
   };
@@ -108,6 +108,10 @@ function actions(dispatch: Dispatch<Actions>) {
   };
   const switchLogged = () => {
     dispatch({ type: "SWITCH_LOGGED" });
+    dispatch({
+      type: "CHOOSE_CANCEL",
+    });
+    dispatch({ type: "CLEAR_CHECKED" });
   };
   const openModalSingleAdvisor = (id: string) => {
     dispatch({

@@ -64,7 +64,7 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           size="sm"
           as="textarea"
           maxLength={200}
-          placeholder="kradziez..."
+          placeholder="Stealing..."
         />
         <Form.Text>Limit is 200 letters</Form.Text>
       </Form.Group>
