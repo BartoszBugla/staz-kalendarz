@@ -6,6 +6,7 @@
 
 Simple calendar app made with react.
 Preview : https://staz-kalendarz.vercel.app
+github : https://github.com/BartoszBugla/staz-kalendarz
 
 ## Technologies :hammer_and_wrench:
 
