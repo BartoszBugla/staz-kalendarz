@@ -8,6 +8,9 @@ const LoginButton: React.FC<LoginButtonProps> = (props) => {
   const [state, { switchLogged, init }] = useCalendar();
   useEffect(() => {
     init(props.init);
+    if (props.init) {
+      switchLogged();
+    }
   }, []);
   return (
     <Button onClick={switchLogged}>

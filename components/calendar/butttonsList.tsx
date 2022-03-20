@@ -15,9 +15,11 @@ const ButtonsList: React.FC<ButtonsListProps> = (props) => {
         </Button>
 
         <Button onClick={clearSlots} variant="danger">
-          Delete{" "}
+          Delete free slots
         </Button>
-        <Button onClick={openModalChoose}>Create</Button>
+        <Button variant="success" onClick={openModalChoose}>
+          Create new slots{" "}
+        </Button>
       </Stack>
     );
   } else if (state.logged && !state.state.isChoosing) {

@@ -42,17 +42,7 @@ type Props = {
   children: ReactNode;
 };
 function init(initialValue: CalendarContextType) {
-  if (initialValue.logged) {
-    return {
-      ...initialValue,
-      slots: { ...advisor_slots },
-    };
-  } else {
-    return {
-      ...initialValue,
-      slots: { ...free_slots },
-    };
-  }
+  return initialValue;
 }
 export function CalendarContextProvider({ children }: Props) {
   //@ts-ignore

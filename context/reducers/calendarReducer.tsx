@@ -146,7 +146,11 @@ const reducer = (state: CalendarContextType, action: Actions) => {
     }
     case "CLEAR_SLOTS": {
       state.state.checked.forEach((id) => {
-        delete state.slots[id];
+        if (state.slots[id]) {
+          state.slots[id] = state.slots[id].filter((i) => {
+            return i.available != true;
+          });
+        }
       });
     }
     case "CLEAR_CHECKED": {
