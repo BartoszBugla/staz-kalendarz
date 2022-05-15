@@ -32,8 +32,7 @@ export const getAllBooked = (slots: Slots) => {
   }
   return newObject;
 };
-//dupa
-//dsid
+
 export const getBookedDay = (slots: Slots, dayId: string) => {
   return slots[dayId].filter((i) => {
     return i.available == false && i.onHold == false;
